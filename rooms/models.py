@@ -9,6 +9,10 @@ class Room(ModelMixin):
         PRIVATE_ROOM = ("private_room", "Private Room")
         SHARED_ROOM = "shared_room", "Shared Room"
 
+    name = models.CharField(
+        max_length=100,
+        default="",
+    )
     country = models.CharField(
         max_length=50,
         default="한국",
@@ -39,6 +43,9 @@ class Room(ModelMixin):
         "rooms.Amenity",
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Amenity(ModelMixin):
 
@@ -52,3 +59,9 @@ class Amenity(ModelMixin):
         null=True,
         blank=True,
     )
+
+    def __str__(self) -> str:
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Amenities"
