@@ -1,7 +1,9 @@
 from django.db import models
 
+from common.models import ModelMixin
+
 # Create your models here.
-class Room(models.Model):
+class Room(ModelMixin):
     class RoomKindChoices(models.TextChoices):
         ENTIRE_PLACE = ("entire_place", "Entire Place")
         PRIVATE_ROOM = ("private_room", "Private Room")
@@ -33,9 +35,12 @@ class Room(models.Model):
         "users.User",
         on_delete=models.CASCADE,
     )
+    amenties = models.ManyToManyField(
+        "rooms.Amenity",
+    )
 
 
-class Amenity(models.Model):
+class Amenity(ModelMixin):
 
     """Amenity Definiton"""
 
@@ -45,4 +50,5 @@ class Amenity(models.Model):
     description = models.CharField(
         max_length=150,
         null=True,
+        blank=True,
     )
