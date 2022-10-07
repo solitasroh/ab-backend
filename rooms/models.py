@@ -39,7 +39,7 @@ class Room(ModelMixin):
         "users.User",
         on_delete=models.CASCADE,
     )
-    amenties = models.ManyToManyField(
+    amenities = models.ManyToManyField(
         "rooms.Amenity",
     )
     category = models.ForeignKey(
