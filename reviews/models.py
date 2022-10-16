@@ -9,6 +9,7 @@ class Review(ModelMixin):
     user = models.ForeignKey(
         "users.User",
         on_delete=models.CASCADE,
+        related_name="reviews",
     )
 
     room = models.ForeignKey(
@@ -16,6 +17,7 @@ class Review(ModelMixin):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="reviews",
     )
 
     experience = models.ForeignKey(
@@ -23,6 +25,7 @@ class Review(ModelMixin):
         null=True,
         blank=True,
         on_delete=models.CASCADE,
+        related_name="reviews",
     )
     payload = models.TextField()
     rating = models.PositiveIntegerField(validators=[MaxValueValidator(5)])

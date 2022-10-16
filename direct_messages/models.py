@@ -23,10 +23,12 @@ class Message(ModelMixin):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="chatting_rooms",
     )
     room = models.ForeignKey(
         "direct_messages.ChattingRoom",
         on_delete=models.CASCADE,
+        related_name="messages",
     )
 
     def __str__(self):
