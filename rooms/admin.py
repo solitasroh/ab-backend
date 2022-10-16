@@ -10,7 +10,10 @@ class RoomAdmin(admin.ModelAdmin):
         "name",
         "price",
         "kind",
+        "total_amenities",
+        "rating",
         "owner",
+        "created_at",
     )
     readonly_fields = (
         "total_amenities",
