@@ -2,22 +2,17 @@ from rest_framework import serializers
 from .models import Category
 
 
-class CategorySerializer(serializers.Serializer):
-    pk = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(
-        required=True,
-        max_length=50,
-    )
-    kind = serializers.ChoiceField(
-        choices=Category.CategoryKindChoices.choices,
-    )
-    created_at = serializers.DateTimeField(read_only=True)
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        # 직접 필드를 선택해야 할 때
+        # fields = (
+        #     "name",
+        #     "kind",
+        # )
 
-    def create(self, validated_data):
-        return Category.objects.create(**validated_data)
+        # 제외하고 싶을 때
+        # exclude = ("crated_at",)
 
-    def update(self, instance: Category, validated_data):
-        instance.name = validated_data.get("name", instance.name)
-        instance.kind = validated_data.get("kind", instance.kind)
-        instance.save()
-        return instance
+        # 모두 보여 줄 때
+        fields = "__all__"
