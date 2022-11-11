@@ -15,4 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
         # exclude = ("crated_at",)
 
         # 모두 보여 줄 때
-        fields = "__all__"
+        fields = (
+            "name",
+            "kind",
+        )
