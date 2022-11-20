@@ -141,3 +141,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # auth
 AUTH_USER_MODEL = "users.User"
+
+# media
+MEDIA_ROOT = "uploads"
+MEDIA_URL = "user-uploads/"
