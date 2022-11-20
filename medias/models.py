@@ -6,7 +6,7 @@ from common.models import ModelMixin
 
 class Photo(ModelMixin):
 
-    file = models.ImageField()
+    file = models.URLField()
     description = models.CharField(
         max_length=140,
     )
@@ -31,7 +31,7 @@ class Photo(ModelMixin):
 
 class Video(ModelMixin):
 
-    file = models.FileField()
+    file = models.URLField()
     experience = models.OneToOneField(
         "experiences.Experience",
         on_delete=models.CASCADE,
