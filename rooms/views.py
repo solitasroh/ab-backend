@@ -157,6 +157,14 @@ class RoomReviews(APIView):
         )
         return Response(serializer.data)
 
+    def post(self, request, pk):
+        room = self.get_object(pk)
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid():
+            review = serializer.save(room=room, user=request.user)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
+        
 
 class Amenities(APIView):
     def get(self, request):
