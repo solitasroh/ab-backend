@@ -74,7 +74,7 @@ class WishlistToggle(APIView):
 
     def get_room(self, pk):
         try:
-            return Room.objects.gget(pk=pk)
+            return Room.objects.get(pk=pk)
         except Room.DoesNotExist:
             raise NotFound
 
