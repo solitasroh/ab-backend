@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "strawberry.django",
+    "corsheaders",
 ]
 
 CUSTOM_APPS = [
@@ -60,6 +62,7 @@ INSTALLED_APPS = CUSTOM_APPS + THIRD_PARTY_APPS + SYSTEM_APPS
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -145,3 +148,5 @@ AUTH_USER_MODEL = "users.User"
 # media
 MEDIA_ROOT = "uploads"
 MEDIA_URL = "user-uploads/"
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]

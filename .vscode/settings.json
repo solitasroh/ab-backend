@@ -1,9 +1,9 @@
 {
     "python.formatting.provider": "black",
     "editor.fontFamily": "Fira Code, Consolas, 'Courier New', monospace",
-    "editor.fontSize": 13,
-    "terminal.integrated.fontFamily": "Inconsolata Nerd Font",
-    "terminal.integrated.fontSize": 13,
+    "editor.fontSize": 12,
+    "terminal.integrated.fontFamily": "MesloLGM NF",
+    "terminal.integrated.fontSize": 12,
     "editor.formatOnSave": true,
     "editor.fontLigatures": true,
 }
