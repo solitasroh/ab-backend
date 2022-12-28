@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 THIRD_PARTY_APPS = [
     "rest_framework",
+    "rest_framework.authtoken",
     "strawberry.django",
     "corsheaders",
 ]
@@ -154,6 +155,7 @@ CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
         "config.permissions.TrustMeBroAuthentication",
     ]
 }
