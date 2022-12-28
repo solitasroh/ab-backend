@@ -1,4 +1,5 @@
 import jwt
+import requests
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 
@@ -122,3 +123,55 @@ class JWTLogIn(APIView):
             return Response({"token": token})
         else:
             return Response({"error": "wrong passsword"})
+
+
+class GithubLogin(APIView):
+    def post(self, request):
+        try:
+            code = request.data.get("code")
+            gh_secret = settings.GH_SECRET
+            response = requests.post(
+                f"https://github.com/login/oauth/access_token?code={code}&client_id=3f18b8b3d9345d2296a3&client_secret={gh_secret}",
+                headers={
+                    "Accept": "application/json",
+                },
+            )
+            print("access_token: ", response.json())
+
+            access_token = response.json().get("access_token")
+            user_data = requests.get(
+                "https://api.github.com/user",
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/json",
+                },
+            )
+            user_data = user_data.json()
+
+            user_emails = requests.get(
+                "https://api.github.com/user/emails",
+                headers={
+                    "Authorization": f"Bearer {access_token}",
+                    "Accept": "application/json",
+                },
+            )
+            user_emails = user_emails.json()
+            try:
+                user = User.objects.get(email=user_emails[0].get("email"))
+                login(request, user)
+                return Response(status=status.HTTP_200_OK)
+            except User.DoesNotExist:
+                print(user_data)
+                user = User.objects.create(
+                    username=user_data.get("login"),
+                    email=user_emails[0]["email"],
+                    # name=user_data.get("name"),
+                    avatar=user_data.get("avatar_url"),
+                )
+                user.set_unusable_password()
+                user.save()
+                login(request, user)
+                return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print(f"exception : {e}")
+            return Response(status=status.HTTP_400_BAD_REQUEST)
