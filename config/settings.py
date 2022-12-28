@@ -150,3 +150,10 @@ MEDIA_ROOT = "uploads"
 MEDIA_URL = "user-uploads/"
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:3000"]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "config.permissions.TrustMeBroAuthentication",
+    ]
+}
