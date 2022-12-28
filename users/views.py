@@ -14,17 +14,26 @@ from . import serializers
 
 class Users(APIView):
     def post(self, request):
-        password = request.data.get("password")
-        if not password:
-            raise exceptions.ParseError
-        serializer = serializers.PrivateUserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            user.set_password(password)
-            user.save()
-            serializer = serializers.PrivateUserSerializer(user)
-            return Response(serializer.data)
-        return Response(serializer.errors)
+        try:
+            username = request.data.get("username")
+            name = request.data.get("name")
+            password = request.data.get("password")
+            email = request.data.get("email")
+            try:
+                user = User.objects.get(name=name)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                user = User.objects.create(
+                    username=username,
+                    name=name,
+                    email=email,
+                )
+                user.set_password(password)
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            print("exception: ", e)
+            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ProfileSelf(APIView):

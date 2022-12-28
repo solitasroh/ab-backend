@@ -37,12 +37,18 @@ class User(AbstractUser):
     gender = models.CharField(
         max_length=10,
         choices=GenderChoices.choices,
+        null=True,
+        blank=True,
     )
     language = models.CharField(
         max_length=2,
         choices=LanguageChoices.choices,
+        null=True,
+        blank=True,
     )
     currency = models.CharField(
         max_length=5,
         choices=CurrencyChoices.choices,
+        null=True,
+        blank=True,
     )
