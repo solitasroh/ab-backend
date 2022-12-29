@@ -16,6 +16,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
         # 모두 보여 줄 때
         fields = (
+            "pk",
             "name",
             "kind",
         )
