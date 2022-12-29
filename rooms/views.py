@@ -229,7 +229,6 @@ class RoomPhotos(APIView):
             raise NotFound
 
     def post(self, request, pk):
-        pass
         room = self.get_object(pk)
 
         if request.user != room.owner:
