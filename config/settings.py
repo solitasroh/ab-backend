@@ -181,11 +181,16 @@ AUTH_USER_MODEL = "users.User"
 # media
 MEDIA_ROOT = "uploads"
 MEDIA_URL = "user-uploads/"
+if DEBUG:
+    CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
+    CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+else:
+    CORS_ALLOWED_ORIGINS = ["https://airbnb-frontend-dqb1.onrender.com"]
+    CSRF_TRUSTED_ORIGINS = ["https://airbnb-frontend-dqb1.onrender.com"]
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
 CORS_ALLOW_CREDENTIALS = True
 # CRSF origin allow
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
