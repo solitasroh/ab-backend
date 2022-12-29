@@ -9,7 +9,7 @@ from rest_framework.exceptions import (
     ParseError,
     PermissionDenied,
 )
-from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST
 
 from .serializers import AmenitySerializer, RoomDetailSerializer, RoomListSerializer
 from .models import Amenity, Room
@@ -48,7 +48,7 @@ class Rooms(APIView):
             if category.kind != Category.CategoryKindChoices.ROOMS:
                 raise ParseError("Cateogory is not room")
             try:
-                with transaction.atomic:
+                with transaction.atomic():
                     room = serializer.save(
                         owner=request.user,
                         category=category,
@@ -63,11 +63,12 @@ class Rooms(APIView):
                     )
 
                     return Response(serializer.data)
-            except Exception:
+            except Exception as e:
+                print(e)
                 raise ParseError("Amenity not found")
 
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
 
 
 class RoomDetail(APIView):
@@ -123,10 +124,12 @@ class RoomDetail(APIView):
                 raise ParseError("Cateogory is not room")
             try:
                 with transaction.atomic:
+
                     room = serializer.save(
                         owner=request.user,
                         category=category,
                     )
+
                     amenities = request.data.get("amenities")
                     for amenity_pk in amenities:
                         amenity = Amenity.objects.get(pk=amenity_pk)
