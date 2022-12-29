@@ -57,7 +57,10 @@ class Rooms(APIView):
                     for amenity_pk in amenities:
                         amenity = Amenity.objects.get(pk=amenity_pk)
                         room.amenities.add(amenity)
-                    serializer = RoomDetailSerializer(room)
+                    serializer = RoomDetailSerializer(
+                        room,
+                        context={"request": request},
+                    )
 
                     return Response(serializer.data)
             except Exception:
