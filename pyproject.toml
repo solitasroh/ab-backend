@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "airbnb-clone-backend"
+name = "ab-backend"
 version = "0.1.0"
 description = ""
 authors = ["solitasroh <78634894+solitasroh@users.noreply.github.com>"]
 license = "MIT"
-readme = "README.md"
 packages = [{include = "ab-backend"}]
 
 [tool.poetry.dependencies]
